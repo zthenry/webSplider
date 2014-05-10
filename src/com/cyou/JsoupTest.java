@@ -60,6 +60,7 @@ public class JsoupTest {
    * @see [类、类#方法、类#成员]
    */
   public static void main(String[] args) {
+	  //TODO 需要接口化，以及配置化一些东西
     Map<String, String> urlMap = new HashMap<String, String>();
     try {
       //百度手机助手url前缀
