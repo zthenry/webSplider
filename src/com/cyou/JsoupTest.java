@@ -18,8 +18,34 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 /**
- * <一句话功能简述> <功能详细描述>
- * 
+ * 获取百度手机助手游戏信息
+ * 每个游戏的信息组织结构如下，主要完成对如下结构的解析，获取必要信息
+ * <div class="app-box"> 
+
+ <div class="app-intro"> 
+
+  <div class="app-icon"> 
+   <a href="/game/item?docid=5397375&amp;from=&amp;f=list_game_404%40sort_popular_0%401"> <img src="http://b.hiphotos.bdimg.com/wisegame/pic/item/b209b3de9c82d1589dfb9fd5820a19d8bc3e425d.jpg" alt="烧饼修改器" width="68" height="68" /> 
+    <div class="mask mask1"></div> </a> 
+  </div> 
+
+  <div class="app-meta"> 
+   <p class="name"> <a href="/game/item?docid=5397375&amp;from=&amp;f=list_game_404%40sort_popular_0%401">烧饼修改器</a> </p> 
+   <p class="star-wrap"><span class="star"><span style="width:84%"></span></span></p> 
+   <p class="down-num">1000万+</p> 
+  </div> 
+
+ </div> 
+
+
+ <div class="app-detail"> 
+  <a class="link-wrap" href="/game/item?docid=5397375&amp;from=&amp;f=list_game_404%40sort_popular_0%401"> <h3 class="name">烧饼修改器</h3> <p class="star-wrap"><span class="star"><span style="width:84%"></span></span></p> <p class="description"> 烧饼，嗯，这个有点意思，游戏玩家适当的修改下游戏，… </p> </a> 
+  <div class="inst-wrap"> 
+   <a class="inst-btn" href="javascript:;" onclick="bd_app_dl(this,event);" data_type="apk" data_detail_type="game" data_url="http://gdown.baidu.com/data/wisegame/ead4b673801d2b9b/GameHacker_51.apk" data_name="烧饼修改器" data_package="org.sbtools.gamehack" data_versionname="2.6.3" data_icon="http://b.hiphotos.bdimg.com/wisegame/pic/item/b209b3de9c82d1589dfb9fd5820a19d8bc3e425d.jpg" data_size="999011" data-action="list_game_404" data-mod="sort_popular_0" data-pos="1" data-tj="game_5397375_253409_烧饼修改器"> <em>安装</em> </a> 
+  </div> 
+ </div> 
+
+</div>
  * @author Administrator
  * @version [版本号, 2014-5-9]
  * @see [相关类/方法]
