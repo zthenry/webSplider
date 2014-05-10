@@ -14,6 +14,7 @@ import java.util.Map;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 /**
@@ -59,14 +60,47 @@ public class JsoupTest {
       //遍历所有分类的url
       for (String key : urlMap.keySet()) {
         String subUrl = urlMap.get(key);
+        String pageOrder = "&page_num=";
         //完整的url
-        String url = baiduZhuShouBaseUrl + subUrl; 
-        String gamePage = Jsoup.connect(url).execute().body();
-        Document gameDoc = Jsoup.parse(gamePage);
+        String url = baiduZhuShouBaseUrl + subUrl+pageOrder;
+        for (int i = 0; i < 100; i++) {
+        	String tempUrl = url + i;
+        	String gamePage = Jsoup.connect(tempUrl).execute().body();
+            Document gameDoc = Jsoup.parse(gamePage);
+            
+            //当前页游戏信息
+            Elements  allGamesPerPage = gameDoc.getElementsByClass("app-box");
+            if (null==allGamesPerPage || allGamesPerPage.size()==0) {
+    			break;
+    		}
+            else {
+            	System.out.println("==================begin===page"+i+"========================");
+            	//System.out.println(allGamesPerPage);	
+            	//System.out.println(allGamesPerPage.size());
+            	for (Element element : allGamesPerPage) {
+            		System.out.println("==================every game info start=======================");
+            		Elements appIconInfo = element.getElementsByClass("app-icon");
+            		String gameIconUrl = appIconInfo.get(0).getElementsByTag("img").attr("src");
+            		Elements appMeta = element.getElementsByClass("app-meta");
+            		String gameSubfixUrl = appMeta.get(0).getElementsByTag("a").attr("href");
+            		String gameName = appMeta.get(0).getElementsByTag("a").text();
+            		String gameUrl = baiduZhuShouBaseUrl+gameSubfixUrl;
+            		System.out.println("游戏名称:"+gameName);
+            		System.out.println("游戏url:"+gameUrl);
+            		System.out.println("游戏图标url:"+gameIconUrl);
+            		Elements allAppDetails = element.getElementsByClass("app-detail");
+            		Elements subAppDetails = element.getElementsByClass("inst-wrap");
+            		String dataUrl = subAppDetails.get(0).getElementsByTag("a").attr("data_url");
+            		String dataVersion = subAppDetails.get(0).getElementsByTag("a").attr("data_versionname");
+            		
+            		System.out.println("游戏下载地址:"+dataUrl+",游戏版本:"+dataVersion);
+            		System.out.println("游戏版本:"+dataVersion);
+            		System.out.println("==================every game info end=======================");
+				}
+              	System.out.println("==================end===page"+i+"========================");
+    		}	
+		}
         
-        //当前页游戏信息
-        Elements  allGame = gameDoc.getElementsByClass("app-box");
-        System.out.println(allGame);
        }
     }
     catch(Exception e) {
