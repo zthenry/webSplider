@@ -11,23 +11,23 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import com.cyou.service.DownLoadImageService;
+import com.cyou.service.DownLoadService;
 
 /**
  * @author root
  * 
  */
-public class DownLoadImageServiceImpl implements DownLoadImageService {
+public class DownLoadImageServiceImpl implements DownLoadService {
 
 	@Override
-	public byte[] getImageFromNetByUrl(String strUrl) {
+	public byte[] getFileFromNetByUrl(String strUrl) {
 		try {
 			URL url = new URL(strUrl);
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 			conn.setRequestMethod("GET");
 			conn.setConnectTimeout(5 * 1000);
-			InputStream inStream = conn.getInputStream();// 通过输入流获取图片数据
-			byte[] btImg = readInputStream(inStream);// 得到图片的二进制数据
+			InputStream inStream = conn.getInputStream();
+			byte[] btImg = readInputStream(inStream);
 			return btImg;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -48,14 +48,14 @@ public class DownLoadImageServiceImpl implements DownLoadImageService {
 	}
 
 	@Override
-	public void writeImageToDisk(byte[] img, String fileName) {
+	public void writeFileToDisk(byte[] img, String fileName) {
 		try {
 			File file = new File(fileName);
 			FileOutputStream fops = new FileOutputStream(file);
 			fops.write(img);
 			fops.flush();
 			fops.close();
-			System.out.println("图片已经写入本地download/imageFromNet");
+			System.out.println("文件"+fileName+"已经保存");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

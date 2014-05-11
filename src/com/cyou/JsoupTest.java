@@ -91,6 +91,7 @@ public class JsoupTest {
       
       //遍历所有分类的url
       String gameIconPath = BaiduProperty.getProperty(PropertyConstants.gameIconPath);
+      String gameApkfilePath = BaiduProperty.getProperty(PropertyConstants.gameApkFilePath);
       for (String key : urlMap.keySet()) {
         String subUrl = urlMap.get(key);
         String pageOrder = "&page_num=";
@@ -125,16 +126,25 @@ public class JsoupTest {
             		Elements subAppDetails = element.getElementsByClass("inst-wrap");
             		String dataUrl = subAppDetails.get(0).getElementsByTag("a").attr("data_url");
             		String dataVersion = subAppDetails.get(0).getElementsByTag("a").attr("data_versionname");
-            		byte[] btImg = downLoadImage.getImageFromNetByUrl(gameIconUrl);  
+            		byte[] btImg = downLoadImage.getFileFromNetByUrl(gameIconUrl);  
             	    if(null != btImg && btImg.length > 0){  
             	            System.out.println("读取到：" + btImg.length + " 字节");  
             	            String fileName = gameIconPath+gameName+".jpg";  
-            	            downLoadImage.writeImageToDisk(btImg, fileName);  
+            	            downLoadImage.writeFileToDisk(btImg, fileName);  
             	    }else{  
             	            System.out.println("没有从该连接获得内容");  
             	    }  
             		System.out.println("游戏下载地址:"+dataUrl);
             		System.out.println("游戏版本:"+dataVersion);
+            		byte[] btdata = downLoadImage.getFileFromNetByUrl(dataUrl);  
+            	    if(null != btdata && btdata.length > 0){  
+            	            System.out.println("读取到：" + btdata.length + " 字节");  
+            	            String fileName = gameApkfilePath+gameName+".apk";  
+            	            downLoadImage.writeFileToDisk(btdata, fileName);  
+            	    }else{  
+            	            System.out.println("没有从该连接获得内容");  
+            	    }  
+            		
             		System.out.println("==================every game info end=======================");
 				}
               	System.out.println("==================end===page"+i+"========================");
