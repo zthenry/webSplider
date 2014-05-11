@@ -17,6 +17,8 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import com.cyou.service.impl.DownLoadImageServiceImpl;
+
 /**
  * 获取百度手机助手游戏信息
  * 每个游戏的信息组织结构如下，主要完成对如下结构的解析，获取必要信息
@@ -62,6 +64,7 @@ public class JsoupTest {
   public static void main(String[] args) {
 	  //TODO 需要接口化，以及配置化一些东西
     Map<String, String> urlMap = new HashMap<String, String>();
+    DownLoadImageServiceImpl downLoadImage = new DownLoadImageServiceImpl();
     try {
       //百度手机助手url前缀
       String baiduZhuShouBaseUrl = "http://shouji.baidu.com";
@@ -115,12 +118,19 @@ public class JsoupTest {
             		System.out.println("游戏名称:"+gameName);
             		System.out.println("游戏url:"+gameUrl);
             		System.out.println("游戏图标url:"+gameIconUrl);
-            		Elements allAppDetails = element.getElementsByClass("app-detail");
+            		//Elements allAppDetails = element.getElementsByClass("app-detail");
             		Elements subAppDetails = element.getElementsByClass("inst-wrap");
             		String dataUrl = subAppDetails.get(0).getElementsByTag("a").attr("data_url");
             		String dataVersion = subAppDetails.get(0).getElementsByTag("a").attr("data_versionname");
-            		
-            		System.out.println("游戏下载地址:"+dataUrl+",游戏版本:"+dataVersion);
+            		byte[] btImg = downLoadImage.getImageFromNetByUrl(gameIconUrl);  
+            	    if(null != btImg && btImg.length > 0){  
+            	            System.out.println("读取到：" + btImg.length + " 字节");  
+            	            String fileName = gameName+".jpg";  
+            	            downLoadImage.writeImageToDisk(btImg, fileName);  
+            	    }else{  
+            	            System.out.println("没有从该连接获得内容");  
+            	    }  
+            		System.out.println("游戏下载地址:"+dataUrl);
             		System.out.println("游戏版本:"+dataVersion);
             		System.out.println("==================every game info end=======================");
 				}
