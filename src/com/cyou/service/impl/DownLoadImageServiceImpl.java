@@ -50,7 +50,7 @@ public class DownLoadImageServiceImpl implements DownLoadImageService {
 	@Override
 	public void writeImageToDisk(byte[] img, String fileName) {
 		try {
-			File file = new File("/home/henry/download/imageFromNet/" + fileName);
+			File file = new File(fileName);
 			FileOutputStream fops = new FileOutputStream(file);
 			fops.write(img);
 			fops.flush();

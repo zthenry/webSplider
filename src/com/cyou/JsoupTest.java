@@ -17,6 +17,8 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import com.cyou.common.BaiduProperty;
+import com.cyou.common.PropertyConstants;
 import com.cyou.service.impl.DownLoadImageServiceImpl;
 
 /**
@@ -88,6 +90,7 @@ public class JsoupTest {
       }
       
       //遍历所有分类的url
+      String gameIconPath = BaiduProperty.getProperty(PropertyConstants.gameIconPath);
       for (String key : urlMap.keySet()) {
         String subUrl = urlMap.get(key);
         String pageOrder = "&page_num=";
@@ -125,7 +128,7 @@ public class JsoupTest {
             		byte[] btImg = downLoadImage.getImageFromNetByUrl(gameIconUrl);  
             	    if(null != btImg && btImg.length > 0){  
             	            System.out.println("读取到：" + btImg.length + " 字节");  
-            	            String fileName = gameName+".jpg";  
+            	            String fileName = gameIconPath+gameName+".jpg";  
             	            downLoadImage.writeImageToDisk(btImg, fileName);  
             	    }else{  
             	            System.out.println("没有从该连接获得内容");  
